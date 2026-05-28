@@ -473,7 +473,7 @@ async function runGeneration(n) {
     ts.className = 'track-badge b-gen'; ts.textContent = '요청중';
     const p = S.prompts[i] || {}, l = S.lyrics[i] || {};
     try {
-      const res = await fetch('https://api.sunoapi.org/api/v1/generate', {
+      const res = await fetch('/api/suno', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${S.sunoKey}` },
         body: JSON.stringify({
@@ -508,7 +508,7 @@ async function pollTask(idx, taskId) {
   for (let a = 0; a < 30; a++) {
     await sleep(5000);
     try {
-      const r = await fetch(`https://api.sunoapi.org/api/v1/generate/record-info?taskId=${taskId}`, {
+      const r = await fetch(`/api/suno?taskId=${taskId}`, {
         headers: { 'Authorization': `Bearer ${S.sunoKey}` }
       });
       const d = await r.json();
