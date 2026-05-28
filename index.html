@@ -368,8 +368,8 @@ async function goStep3() {
   try {
     // 가사
     const lRaw = await claude(
-      '전문 작사가입니다. JSON 배열만 응답하세요. 마크다운 없이.',
-      `컨셉: ${S.concept}\n장르: ${S.genre}\n\n${S.count}곡의 제목과 가사(verse1, chorus, verse2, outro)를 JSON 배열로:\n[{"track":1,"title":"제목","lyrics":"[Verse 1]\\n가사\\n\\n[Chorus]\\n가사\\n\\n[Verse 2]\\n가사\\n\\n[Outro]\\n가사"}]`
+      'You are a professional songwriter. Write lyrics in English only. Respond with JSON array only, no markdown.',
+      `Concept: ${S.concept}\nGenre: ${S.genre}\n\nWrite ${S.count} songs with full English lyrics. Each song must have: [Verse 1] (8 lines), [Pre-Chorus] (4 lines), [Chorus] (8 lines), [Verse 2] (8 lines), [Bridge] (4 lines), [Chorus] (8 lines), [Outro] (4 lines). Make lyrics emotional and detailed. JSON format:\n[{"track":1,"title":"Song Title","lyrics":"[Verse 1]\\nlyrics here\\n\\n[Pre-Chorus]\\nlyrics here\\n\\n[Chorus]\\nlyrics here\\n\\n[Verse 2]\\nlyrics here\\n\\n[Bridge]\\nlyrics here\\n\\n[Chorus]\\nlyrics here\\n\\n[Outro]\\nlyrics here"}]`
     );
     S.lyrics = parseJSON(lRaw) || [];
     lEl.className = 'output';
