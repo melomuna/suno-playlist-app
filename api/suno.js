@@ -7,7 +7,12 @@ export default async function handler(req, res) {
     return res.status(200).end();
   }
 
-  const sunoKey = req.headers['x-suno-key'] || req.headers['authorization'];
+  // 환경변수에서 키 읽기 (앱에서 보낸 키가 없으면 환경변수 사용)
+  const sunoKey = req.headers['x-suno-key'] || req.headers['authorization']?.replace('Bearer ', '') || process.env.SUNO_API_KEY;
+
+  if (!sunoKey) {
+    return res.status(401).json({ error: 'Suno API key is required' });
+  }
 
   try {
     if (req.method === 'GET') {
